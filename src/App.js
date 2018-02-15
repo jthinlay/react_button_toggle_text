@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Button } from 'react-bootstrap';
-import BtnComp from './Components/BtnComp';
-import ChildComp from './Components/ChildComp';
+import BtnComp from './Components/BtnBox/BtnComp';
+import ChildComp from './Components/BtnBox/ChildComp';
 
 class App extends Component {
   constructor(){
