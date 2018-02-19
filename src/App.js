@@ -4,8 +4,6 @@ import { Button } from 'react-bootstrap';
 import BtnComp from './Components/BtnBox/BtnComp';
 import ChildComp from './Components/BtnBox/ChildComp';
 import Count from './Components/Count/Count';
-import Test from './Components/test/test';
-import TestChild from './Components/test/testChild';
 
 class App extends Component {
   constructor(){
@@ -21,28 +19,31 @@ class App extends Component {
       count: this.state.count + i
     })
   }
+
   clearValue=()=>{
     this.setState({
       count: this.state.count * 0
     })
   }
+
   toggleBtn(){
     this.setState({
       clicked: !this.state.clicked
     })
   }
+
   changeChildText(){
-    return this.state.clicked? this.props.textOptionOne : this.props.textOptionTwo;
+    return(
+    this.state.clicked? this.props.textOptionOne : this.props.textOptionTwo
+    )
   }
 
   render() {
     return (
       <div className="container">
-
         <hr />
           <Count AddValue={this.incrementCountValue} ChildPropOne={this.state.count} CleanValue={this.clearValue}/>
         <hr />
-
         <ChildComp childProp={this.changeChildText()} />
         <BtnComp btnProp={this.toggleBtn.bind(this)}/>
       </div>
