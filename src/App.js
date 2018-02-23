@@ -1,68 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Button } from 'react-bootstrap';
-import BtnComp from './Components/BtnBox/BtnComp';
-import ChildComp from './Components/BtnBox/ChildComp';
-import Count from './Components/Count/Count';
-class App extends Component {
-  constructor(){
-    super();
-    this.state={
-      clicked: false,
-        count: 0,
-         txtA: '',
-         txtB: ''
-    }
-    this.changeChildText=this.changeChildText.bind(this);
+class App extends Component{
+  update(){
+    <App val={this.props.val + 1} result={this.props.val}/>
   }
-update=(e)=>{
-  this.setState({
-    txtA: this.refs.a.value,
-    txtB: this.refs.b.value
-  })
-}
-  incrementCountValue=(i)=>{
-    this.setState({
-      count: this.state.count + i
-    })
-  }
-  clearValue=()=>{
-    this.setState({
-      count: this.state.count * 0
-    })
-  }
-  toggleBtn(){
-    this.setState({
-      clicked: !this.state.clicked
-    })
-  }
-  changeChildText(){
+  render(){
     return(
-    this.state.clicked? this.props.textOne : this.props.textTwo
-    )
-  }
-  render() {
-    let items = this.state.items
-    return (
       <div className="container">
-        {this.props.textOne}
-        <hr />
-        <input type="text" ref='a' onChange={this.update.bind(this)} />
-        <h3> {this.state.txtA} </h3>
-        <hr />
-        <input type="text" ref='b' onChange={this.update.bind(this)} />
-        <h3> {this.state.txtB} </h3>
-        <hr />
-          <Count AddValue={this.incrementCountValue} ChildPropOne={this.state.count} CleanValue={this.clearValue}/>
-        <hr />
-        <ChildComp childProp={this.changeChildText()} />
-        <BtnComp btnProp={this.toggleBtn.bind(this)}/>
+          <button onClick={this.update.bind(this)}  >
+            {this.props.val} {this.props.result} 
+          </button>
       </div>
     )
   }
 }
-App.defaultProps = {
-  textOne: <h1>Now practic !!! </h1>,
-  textTwo: <h1>Welcome to React Practic Playground</h1>,
-}
-export default App;
+App.defaultProps = {val: 0}
+
+export default App
