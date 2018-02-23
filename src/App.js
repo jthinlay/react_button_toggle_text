@@ -10,13 +10,15 @@ class App extends Component {
     this.state={
       clicked: false,
         count: 0,
-          txt: '',
+         txtA: '',
+         txtB: ''
     }
     this.changeChildText=this.changeChildText.bind(this);
   }
 update=(e)=>{
   this.setState({
-    txt: e.target.value
+    txtA: this.refs.a.value,
+    txtB: this.refs.b.value
   })
 }
   incrementCountValue=(i)=>{
@@ -39,15 +41,17 @@ update=(e)=>{
     this.state.clicked? this.props.textOne : this.props.textTwo
     )
   }
-
   render() {
+    let items = this.state.items
     return (
       <div className="container">
-
         {this.props.textOne}
         <hr />
-        <input type="text" onChange={this.update.bind(this)} />
-        <h3>{this.state.txt}</h3>
+        <input type="text" ref='a' onChange={this.update.bind(this)} />
+        <h3> {this.state.txtA} </h3>
+        <hr />
+        <input type="text" ref='b' onChange={this.update.bind(this)} />
+        <h3> {this.state.txtB} </h3>
         <hr />
           <Count AddValue={this.incrementCountValue} ChildPropOne={this.state.count} CleanValue={this.clearValue}/>
         <hr />
