@@ -1,20 +1,58 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button } from 'react-bootstrap';
+
+const API = 'https://hn.algolia.com/api/v1/search?query=';
+const DEFAULT_TITLE = 'Not Available';
+
 class App extends Component{
-  update(){
-    <App val={this.props.val + 1} result={this.props.val}/>
+  constructor(){
+    super();
+    this.state={
+      hits: [],
+      isLoading: false,
+      error: null,
+    }
+  }
+  componentDidMount(){
+    this.setState({
+      isLoading: true
+    })
+    fetch(API)
+    .then(response => {
+      if(response.ok){
+        return response.json()
+      }else{
+        throw Error('something went wrong...')
+      }
+    })
+    .then(data => this.setState({
+      hits: data.hits,
+      isLoading: false,
+    }))
+    .catch(error => this.setState({
+      error,
+      isLoading: false,
+    }))
   }
   render(){
+    const {hits, isLoading, error } = this.state
+    if(error){
+      return <p> {error.message}</p>
+    }
+    if(isLoading){
+      return <p>Loading ... </p>
+    }
     return(
       <div className="container">
-          <button onClick={this.update.bind(this)}  >
-            {this.props.val} {this.props.result} 
-          </button>
+            {hits.map(data =>
+              <ul key={data.objectID}>
+                  <li>Title:<a href={data.url}> {data.title || DEFAULT_TITLE}</a></li>
+                  <li>Author: {data.author}</li>
+                  <li>Points: {data.points}</li>
+              </ul>
+            )}
       </div>
     )
   }
 }
-App.defaultProps = {val: 0}
-
 export default App
