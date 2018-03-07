@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import Header from './Components/Header/Header';
 
-const API= 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_TITLE = 'N/A';
+
+const API = 'https://hn.algolia.com/api/v1/search?query=';
+const DEFAULE_TITLE = 'N/A title'
+
 class App extends Component{
   constructor(){
     super();
@@ -12,45 +16,44 @@ class App extends Component{
       error: null
     }
   }
-    componentDidMount(){
-      this.setState({
-        isLoading: true
-      })
-
-      fetch(API)
-      .then(response => {
-          if(response.ok){
-            return response.json()
-          }else{
-            throw Error('Something went wrong...')
-          }
-          })
-      .then(data => this.setState({
+  componentDidMount(){
+    this.setState({
+      isLoading: true
+    })
+    fetch(API)
+    .then(response =>{
+      if(response.ok){
+        return response.json()
+      }else{
+          throw Error('Somethig went wrong...')
+      }
+      } )
+    .then( data => this.setState({
           hits: data.hits,
-          isLoading: false
-          }))
-      .catch(error => this.setState({
+          isLoading: false,
+    }))
+    .catch(error => this.setState({
           error,
           isLoading: false
-          }))
-    }
+    }))
+  }
   render(){
-    const {hits, isLoading, error } = this.state
-
-    if(error){
-      return <p>{error.message}</p>
-    }
-    if(isLoading){
-      return <p>Loading...</p>
-    }
+    const { hits, isLoading, error } = this.state;
+        if(isLoading){
+          return <p> Loading... </p>
+        }
+        if(error){
+          return <p>{error.message}</p>
+        }
     return(
       <div className="container">
+          <Header />
           {hits.map(data =>
-              <ul key={data.objectID}>
-                  <li>Title: <a href={data.title}>{data.title || DEFAULT_TITLE}</a></li>
-                  <li>Author: {data.author}</li>
-                  <li>Points: {data.points}</li>
-              </ul>
+            <ul key={data.objectID}>
+                <li>Title:<a href={data.url}> {data.title || DEFAULE_TITLE}</a></li>
+                <li>Author: {data.author}</li>
+                <li>Points: {data.points}</li>
+            </ul>
           )}
       </div>
     )
