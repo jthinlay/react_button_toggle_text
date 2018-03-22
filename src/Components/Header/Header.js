@@ -21,29 +21,14 @@ class Header extends Component{
       isOpen: !this.state.isOpen
     });
   }
-
-
-
   render(){
     return(
       <div className="App">
-
-        <NavLink
-          to='/main'
-          activeClassName = "active"
-          isActive={checkActive}
-          > Main</NavLink>
-
-          <NavLink
-            to='/contact'
-            activeClassName = "active"
-            > Contact</NavLink>
-
-          <NavLink
-            to='/about'
-            activeClassName = "active"
-            > About</NavLink>
-
+        <NavLink to ='/' activeClassName ='active' isActive={checkActive}> Home</NavLink>
+        <NavLink to='/main' activeClassName = "active" isActive={checkActive}> Main</NavLink>
+        <NavLink to='/contact' activeClassName = "active"> Contact</NavLink>
+        <NavLink to='/about' activeClassName = "active"> About</NavLink>
+        <NavLink to='/topics' activeClassName = 'active'> Topic </NavLink>
       </div>
     )
   }

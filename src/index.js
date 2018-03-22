@@ -7,6 +7,7 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import Contact from './Components/Page/Contact';
 import About from './Components/Page/About';
 import Main from './Components/Page/Main';
+import Topics from './Components/Page/Topics';
 import { Link } from 'react-router-dom';
 
 const First = (props) => {
@@ -17,20 +18,24 @@ const First = (props) => {
     </div>
   )
 }
+
+const topic = ({match})=>(
+  <div>
+    <h3>{match.params.topicId}</h3>
+  </div>
+)
+
 ReactDOM.render(
   <BrowserRouter>
     <div>
       <Route exact path='/' component={App} />
       <Route path='/main' component={First} />
-      <Route path='/about' render={()=>
-          <div>
-            <About />
-          </div>  }/>
-
-      <Route path='/contact' render={()=>
-          <div>
-            <Contact />
-          </div>} />
+      <Route path='/about' render={()=> <About />  }  />
+      <Route path='/contact' render={()=> <Contact /> } />
+      <Route path='/topics' render={()=> <Topics /> } />
+      <Route exact path='/topics/:topicId' component={topic } />
     </div>
+
   </BrowserRouter>,
+
 document.getElementById('root'));
